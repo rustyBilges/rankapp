@@ -7,6 +7,6 @@ INSERT INTO response (author_id, created, number_patients)
 VALUES
   (1, '2018-01-01 00:00:00', 15);
 
-INSERT INTO rank (response_id, rank_number, name, bed_number, t_number, ecounter_id)
+INSERT INTO rank (response_id, author_id, rank_number, name, bed_number, t_number, encounter_id)
 VALUES
-  (1, -1, 'Eduardo Galeano', 10, 'T01', 2);
+  (1, 1, -1, 'Eduardo Galeano', 10, 'T01', 2);

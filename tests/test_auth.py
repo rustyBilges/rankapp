@@ -1,5 +1,5 @@
 import pytest
-from rankapp import g, session
+from flask import g, session
 from rankapp.db import get_db
 
 
