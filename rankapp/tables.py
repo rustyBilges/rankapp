@@ -15,7 +15,7 @@ def index():
 
 @bp.route('/table2')
 @login_required
-def second():
+def table2():
     return render_template('tables/table2.html')
 
 @bp.route('/logout_msg')
@@ -27,7 +27,7 @@ def finish():
 @login_required
 def submit_table1():
     #if request.method == 'POST':
-    return redirect(url_for('tables.second'))
+    return redirect(url_for('tables.table2'))
 
 @bp.route('/submit_table2', methods=('GET', 'POST'))
 @login_required
