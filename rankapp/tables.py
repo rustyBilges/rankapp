@@ -18,6 +18,8 @@ def index():
 def second():
     return render_template('tables/table2.html')
 
-@bp.route('/submit_table1')
+@bp.route('/submit_table1', methods=('GET', 'POST'))
+@login_required
 def submit_table1():
-    print("Done.")
+    #if request.method == 'POST':
+    return redirect(url_for('tables.second'))
