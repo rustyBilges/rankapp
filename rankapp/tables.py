@@ -9,5 +9,6 @@ from rankapp.db import get_db
 bp = Blueprint('tables', __name__)
 
 @bp.route('/')
+@login_required
 def index():
     return render_template('tables/table1.html')
