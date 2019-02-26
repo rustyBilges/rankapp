@@ -3,7 +3,7 @@ import pytest
 @pytest.mark.parametrize('path', (
     '/',
     '/table2',
-    '/submit_table1'
+    '/submit_table1',
     '/submit_table2'
 ))
 def test_login_required(client, path):
