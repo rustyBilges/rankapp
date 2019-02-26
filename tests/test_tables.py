@@ -15,6 +15,6 @@ def test_submit_table1(client, auth):
     ##              saves table 1 data correctly 
     auth.login()
     response = client.post('/submit_table1')
-    assert response.headers['Location'] is not None #'http://localhost/table2'
+    assert response.headers['Location'] == 'http://localhost/table2'
     
     
