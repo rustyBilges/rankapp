@@ -34,9 +34,37 @@
         $(this).toggleClass('selected');
         } );
     $('#testButton').click( function () {
-        alert( table.rows('.selected').data().length +' row(s) selected' );
+        //alert( table.rows('.selected').data().length +' row(s) selected' );
+        var i;
+        var text = '';
+        for (i = 0; i < table.rows('.selected').data().length; i++) {
+          text += table.rows('.selected').data()[i] + "\n";
+        } 
+        alert( text );
     } );
-  } );
+    });
+  $(function(){
+    function setInputValue(input_id, val) {
+        document.getElementById(input_id).setAttribute('value', val);
+    }
+    function addInput(val, i) {
+        var input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('value', val);
+        input.setAttribute('id', i);
+        var inform = document.getElementById('nrfd_form');
+        inform.appendChild(input);
+        alert( document.getElementById('nrfd_form')['myname']['value'] );
+    }
+    setInputValue('prodId', 'mxw22222222'); 
+    //addInput('beasty', 'myname');
+    $('<input>').attr({
+    type: 'hidden',
+    id: 'myname',
+    name: 'myname',
+    value: 'beasty'}).appendTo('#nrfd_form');
+    alert( document.getElementById('nrfd_form')['myname']['value'] );
+  });
   </script>
   <button type="button" id="testButton">Count selected..</button>
 
@@ -82,7 +110,8 @@
         </tbody>
     </table>
   
-  <form action="/submit_table1", method="post">
+  <form action="/submit_table1", method="post", id="nrfd_form">
     <input type="submit" value="Submit">
+    <input id="prodId" name="prodId" type="hidden" value="xm234jq">
   </form>
 {% endblock %}

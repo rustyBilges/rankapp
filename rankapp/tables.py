@@ -26,7 +26,11 @@ def finish():
 @bp.route('/submit_table1', methods=('GET', 'POST'))
 @login_required
 def submit_table1():
-    #if request.method == 'POST':
+    if request.method == 'POST':
+        prodId = request.form['prodId']
+        print(prodId)
+        prodId = request.form["myname"]
+        print(prodId)
     return redirect(url_for('tables.table2'))
 
 @bp.route('/submit_table2', methods=('GET', 'POST'))
