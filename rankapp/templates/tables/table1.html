@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Tempry holder!{% endblock %}</h1>
+  <h1>{% block title %}Remove NRFD.{% endblock %}</h1>
 {% endblock %}
 
+{% block content %}
+  <form method="post">
+    <a href="/submit_table1"><input type="button" value="Submit">
+  </form>
+{% endblock %}

@@ -12,3 +12,12 @@ bp = Blueprint('tables', __name__)
 @login_required
 def index():
     return render_template('tables/table1.html')
+
+@bp.route('/table2')
+@login_required
+def second():
+    return render_template('tables/table2.html')
+
+@bp.route('/submit_table1')
+def submit_table1():
+    print("Done.")
