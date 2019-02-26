@@ -3,7 +3,7 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-from rankapp.auth import login_required
+from rankapp.auth import login_required, logout
 from rankapp.db import get_db
 
 bp = Blueprint('tables', __name__)
@@ -18,8 +18,18 @@ def index():
 def second():
     return render_template('tables/table2.html')
 
+@bp.route('/logout_msg')
+def finish():
+    logout()
+    return render_template('tables/logout_msg.html')
+
 @bp.route('/submit_table1', methods=('GET', 'POST'))
 @login_required
 def submit_table1():
     #if request.method == 'POST':
     return redirect(url_for('tables.second'))
+
+@bp.route('/submit_table2', methods=('GET', 'POST'))
+@login_required
+def submit_table2():
+    return redirect(url_for('tables.finish'))

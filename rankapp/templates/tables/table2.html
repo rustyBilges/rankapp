@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Rank remaining patients.{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form action="/submit_table2", method="post">
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}
