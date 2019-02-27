@@ -21,6 +21,7 @@
         "ordering": false,
         "info":     false,
         "searching":   false,
+        select   : {style: 'multi'},
          columnDefs: [{
             targets: [1,2,3,4],
             className: 'dt-right'
@@ -42,30 +43,34 @@
         } 
         alert( text );
     } );
+    $(function(){
+    function setInputValue(input_id, val) {
+        document.getElementById(input_id).setAttribute('value', val);
+    }    
+    // add inputs to form based on which patients are present
     var data = table.rows().data();
     data.each(function (value, index) {
      console.log(`For index ${index}, data value is ${value}`);
-     //alert(`${value[0]}`);
         $('<input>').attr({
         type: 'hidden',
         id: `${value[0]}`,
         name: `${value[0]}`,
         value: 'unselected'}).appendTo('#nrfd_form');
      });
+    table.off("select").on( "select", function( e, dt, type, indexes ) {
+        //console.log( e, dt, type, indexes );
+        var pname = table.rows().data()[indexes][0]
+        alert(pname);
+        setInputValue(pname, 'selected')
+     });
+    table.off("deselect").on( "deselect", function( e, dt, type, indexes ) {
+        //console.log( e, dt, type, indexes );
+        var pname = table.rows().data()[indexes][0]
+        alert(pname);
+        setInputValue(pname, 'unselected')
+     });  
     });
-  $(function(){
-    function setInputValue(input_id, val) {
-        document.getElementById(input_id).setAttribute('value', val);
-    }
-    
-    setInputValue('prodId', 'mxw22222222'); 
-   
-    $('<input>').attr({
-    type: 'hidden',
-    id: 'myname',
-    name: 'myname',
-    value: 'beasty'}).appendTo('#nrfd_form');
-    alert( document.getElementById('nrfd_form')['myname']['value'] );
+     
   });
   </script>
   <button type="button" id="testButton">Count selected..</button>
@@ -93,6 +98,5 @@
   
   <form action="/submit_table1", method="post", id="nrfd_form">
     <input type="submit" value="Submit">
-    <input id="prodId" name="prodId" type="hidden" value="xm234jq">
   </form>
 {% endblock %}

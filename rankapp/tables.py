@@ -40,10 +40,7 @@ def finish():
 @login_required
 def submit_table1():
     if request.method == 'POST':
-        prodId = request.form['prodId']
-        print(prodId)
-        prodId = request.form["myname"]
-        print(prodId)
+
         prodId = request.form["Guy Bailey"]
         print(prodId)
         prodId = request.form["Princess Campbell"]
