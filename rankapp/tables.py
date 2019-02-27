@@ -1,3 +1,6 @@
+import pandas as pd
+import json
+
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
@@ -11,7 +14,17 @@ bp = Blueprint('tables', __name__)
 @bp.route('/')
 @login_required
 def index():
-    return render_template('tables/table1.html')
+    df = pd.DataFrame()
+    df['Name'] = ['Paul Stephenson', 'Princess Campbell', 'Guy Bailey', 'Roy Hackett']
+    df['Bed'] = [1,3,5,11]
+    df['T_number'] = ['T38746', 'T18346', 'T32985', 'T23190']
+    df['Age'] = ['61', '52', '81', '77']
+    df['Admission'] = ['2019/01/25', '2019/03/01', '2019/02/18', '2019/02/22']
+    table_d = json.loads(df.to_json(orient='index'))
+    columns = df.columns
+                
+    return render_template('tables/table1.html', columns=columns, 
+                            table_data=table_d)
 
 @bp.route('/table2')
 @login_required

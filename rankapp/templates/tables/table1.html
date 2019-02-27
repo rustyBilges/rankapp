@@ -68,46 +68,25 @@
   </script>
   <button type="button" id="testButton">Count selected..</button>
 
-  <table id="example" class="display" style="width:100%">
-        <thead>
+  <table id="example" class="tabel display" style="width:100%">
+    <thead>
+        <tr>
+            {% for c in columns %}
+                <th scope="col">{{c}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for k,v in table_data.items() %}
             <tr>
-                <th>Name</th>
-                <th>Bed number</th>
-                <th>T number</th>
-                <th>Age</th>
-                <th>Admission date</th>
+                <td>{{v.Name}}</td>
+                <td>{{v.Bed}}</td>
+                <td>{{v.T_number}}</td>
+                <td>{{v.Age}}</td>
+                <td>{{v.Admission}}</td>
             </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Paul Stephenson</td>
-                <td>4</td>
-                <td>T402361</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-            </tr>
-            <tr>
-                <td>Princess Campbell</td>
-                <td>11</td>
-                <td>T410974</td>
-                <td>63</td>
-                <td>2011/07/25</td>
-            </tr>
-            <tr>
-                <td>Roy Hackett</td>
-                <td>12</td>
-                <td>T218475</td>
-                <td>81</td>
-                <td>2011/07/26</td>
-            </tr>
-            <tr>
-                <td>Guy Bailey</td>
-                <td>21</td>
-                <td>T321850</td>
-                <td>70</td>
-                <td>2011/06/14</td>
-            </tr>
-        </tbody>
+        {% endfor %}
+    </tbody>
     </table>
   
   <form action="/submit_table1", method="post", id="nrfd_form">
