@@ -5,6 +5,58 @@
 {% endblock %}
 
 {% block content %}
+  <p>Please drag to rank patients according to their readiness for discharge.</p>
+  <p>When you have finished ranking click 'submit'.</p>
+  
+
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/rr-1.2.4/sl-1.2.6/datatables.min.css"/> 
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/rr-1.2.4/sl-1.2.6/datatables.min.js"></script>
+  <script>  
+  $(document).ready(function() {
+    var table = $('#example').DataTable({
+        "paging":   false,
+        "ordering": false,
+        "info":     false,
+        "searching":   false,
+        rowReorder: true,
+        select   : {style: 'api'},
+         columnDefs: [{
+            targets: [1,2,3,4],
+            className: 'dt-right'
+            },
+            {
+            targets: [0],
+            className: 'dt-left'
+            }]
+        });
+     
+  });
+  </script>
+  <table id="example" class="table display" style="width:100%">
+    <thead>
+        <tr>
+            {% for c in columns %}
+                <th scope="col">{{c}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for k,v in table_data.items() %}
+            <tr>
+                <td>{{v.Name}}</td>
+                <td>{{v.Bed}}</td>
+                <td>{{v.T_number}}</td>
+                <td>{{v.Age}}</td>
+                <td>{{v.Admission}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    
   <form action="/submit_table2", method="post">
     <input type="submit" value="Submit">
   </form>
