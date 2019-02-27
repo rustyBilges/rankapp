@@ -42,22 +42,24 @@
         } 
         alert( text );
     } );
+    var data = table.rows().data();
+    data.each(function (value, index) {
+     console.log(`For index ${index}, data value is ${value}`);
+     //alert(`${value[0]}`);
+        $('<input>').attr({
+        type: 'hidden',
+        id: `${value[0]}`,
+        name: `${value[0]}`,
+        value: 'unselected'}).appendTo('#nrfd_form');
+     });
     });
   $(function(){
     function setInputValue(input_id, val) {
         document.getElementById(input_id).setAttribute('value', val);
     }
-    function addInput(val, i) {
-        var input = document.createElement('input');
-        input.setAttribute('type', 'hidden');
-        input.setAttribute('value', val);
-        input.setAttribute('id', i);
-        var inform = document.getElementById('nrfd_form');
-        inform.appendChild(input);
-        alert( document.getElementById('nrfd_form')['myname']['value'] );
-    }
+    
     setInputValue('prodId', 'mxw22222222'); 
-    //addInput('beasty', 'myname');
+   
     $('<input>').attr({
     type: 'hidden',
     id: 'myname',

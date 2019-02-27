@@ -44,6 +44,10 @@ def submit_table1():
         print(prodId)
         prodId = request.form["myname"]
         print(prodId)
+        prodId = request.form["Guy Bailey"]
+        print(prodId)
+        prodId = request.form["Princess Campbell"]
+        print(prodId)
     return redirect(url_for('tables.table2'))
 
 @bp.route('/submit_table2', methods=('GET', 'POST'))
