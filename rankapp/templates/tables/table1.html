@@ -18,9 +18,9 @@
   $(document).ready(function() {
     var table = $('#example').DataTable({
         "paging":   false,
-        "ordering": false,
         "info":     false,
         "searching":   false,
+        "order": [[ 1, "asc" ]],
         select   : {style: 'multi'},
          columnDefs: [{
             targets: [1,2,3,4],
@@ -29,12 +29,42 @@
             {
             targets: [0],
             className: 'dt-left'
-            }]
+            },
+            {orderable: false,
+            targets: [0,1,2,3,4,]
+            }],
         });
     
-    // this probably cleaner way to track selected patients...    
+    function setInputValue(input_id, val) {
+        document.getElementById(input_id).setAttribute('value', val);
+    }    
+    $(function(){
+        
+    // add inputs to form based on which patients are present
+    var data = table.rows().data();
+    data.each(function (value, index) {
+        $('<input>').attr({
+        type: 'hidden',
+        id: `${value[0]}`,
+        name: `${value[0]}`,
+        value: 'unselected'}).appendTo('#nrfd_form');
+     });  
+    });
+    
+    // cleaner way to track selected patients...    
     $('#example tbody').on( 'click', 'tr', function () {
         $(this).toggleClass('selected');
+        $(this).find("td").each(function(i) {
+            //toggle between adding/removing the 'active' class
+            $(this).toggleClass('active');
+          });
+        var pname = $(this).find("td:nth-child(1)").html();
+        if ($(this).hasClass('selected')){
+            setInputValue(pname, 'selected');
+         }
+         else{
+             setInputValue(pname, 'unselected');
+         }
         } );
     $('#testButton').click( function () {
         //alert( table.rows('.selected').data().length +' row(s) selected' );
@@ -45,38 +75,12 @@
         } 
         alert( text );
     } );
-    $(function(){
-    function setInputValue(input_id, val) {
-        document.getElementById(input_id).setAttribute('value', val);
-    }    
-    // add inputs to form based on which patients are present
-    var data = table.rows().data();
-    data.each(function (value, index) {
-     console.log(`For index ${index}, data value is ${value}`);
-        $('<input>').attr({
-        type: 'hidden',
-        id: `${value[0]}`,
-        name: `${value[0]}`,
-        value: 'unselected'}).appendTo('#nrfd_form');
-     });
-    table.off("select").on( "select", function( e, dt, type, indexes ) {
-        //console.log( e, dt, type, indexes );
-        var pname = table.rows().data()[indexes][0]
-        //alert(pname);
-        setInputValue(pname, 'selected')
-     });
-    table.off("deselect").on( "deselect", function( e, dt, type, indexes ) {
-        //console.log( e, dt, type, indexes );
-        var pname = table.rows().data()[indexes][0]
-        //alert(pname);
-        setInputValue(pname, 'unselected')
-     });  
-    });
+
      
   });
+  
   </script>
   <button type="button" id="testButton">Count selected..</button>
-
   <table id="example" class="table display" style="width:100%">
     <thead>
         <tr>
@@ -97,7 +101,6 @@
         {% endfor %}
     </tbody>
     </table>
-  
   <form action="/submit_table1", method="post", id="nrfd_form">
     <input type="submit" value="Submit">
   </form>
