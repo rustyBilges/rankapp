@@ -36,11 +36,11 @@
             targets: [0,1,2,3,4,5]
             }]
         });
-
-    $(function(){
     function setInputValue(input_id, val) {
         document.getElementById(input_id).setAttribute('value', val);
-    }    
+    }
+    
+    $(function(){
     // add inputs to form based on which patients are present
     var data = table.rows().data();
     data.each(function (value, index) {
@@ -50,15 +50,16 @@
         id: `${value[1]}`,
         name: `${value[1]}`,
         value: `${value[0]}`}).appendTo('#nrfd_form');
-     });
-     // update stored rank when rows are reordered:
-     table.on( 'row-reorder', function ( e, diff, edit ) {
-        var data = table.rows().data();
-        data.each(function (value, index) {
-            setInputValue(`${value[1]}`, `${value[0]}`);
-        });
-     });            
+      });        
     });
+    // update stored rank when rows are reordered:
+    table.on( 'row-reorder', function ( e, diff, edit ) {
+        for ( var i=0, ien=diff.length ; i<ien ; i++ ) {
+            var rowData = table.row( diff[i].node ).data();
+            setInputValue(rowData[1], diff[i].newData);
+        }
+     });    
+    
   });
   </script>
   <table id="example" class="table display" style="width:100%">
