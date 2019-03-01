@@ -10,7 +10,6 @@ more-itertools==6.0.0
 numpy==1.16.2
 pandas==0.24.1
 pathlib2==2.3.3
-pkg-resources==0.0.0
 pluggy==0.9.0
 py==1.8.0
 pytest==4.3.0
