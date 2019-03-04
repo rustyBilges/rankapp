@@ -21,7 +21,9 @@
         "paging":   false,
         "info":     false,
         "searching":   false,
-        rowReorder: true,
+        rowReorder: {
+            selector: 'tr'
+        },
         "order": [[ 0, "asc" ]],
         select   : {style: 'api'},
          columnDefs: [{
