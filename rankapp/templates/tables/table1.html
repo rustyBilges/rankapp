@@ -66,21 +66,21 @@
              setInputValue(pname, 'unselected');
          }
         } );
-    $('#testButton').click( function () {
-        //alert( table.rows('.selected').data().length +' row(s) selected' );
-        var i;
-        var text = '';
-        for (i = 0; i < table.rows('.selected').data().length; i++) {
-          text += table.rows('.selected').data()[i] + "\n";
-        } 
-        alert( text );
-    } );
+    //$('#testButton').click( function () {
+    //    //alert( table.rows('.selected').data().length +' row(s) selected' );
+    //    var i;
+    //    var text = '';
+    //    for (i = 0; i < table.rows('.selected').data().length; i++) {
+    //      text += table.rows('.selected').data()[i] + "\n";
+    //    } 
+    //    alert( text );
+    //} );
 
      
   });
-  
+  // <?-- <button type="button" id="testButton">Count selected..</button> >
   </script>
-  <button type="button" id="testButton">Count selected..</button>
+  
   <table id="example" class="table display" style="width:100%">
     <thead>
         <tr>
