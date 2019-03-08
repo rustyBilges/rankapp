@@ -13,11 +13,12 @@ pandas==0.24.1
 pathlib2==2.3.3
 pluggy==0.9.0
 py==1.8.0
+pyodbc==4.0.26
 pytest==4.3.0
 python-dateutil==2.8.0
 python-interface==1.5.1
 pytz==2018.9
--e git+https://github.com/rustyBilges/rankapp.git@b196c62be81203683032de299248dbfe99f4335f#egg=rankapp
+-e git+https://github.com/rustyBilges/rankapp.git@d1c3ba6547c7a856b23659973fe3e88707987c2c#egg=rankapp
 six==1.12.0
 typing==3.6.6
 Werkzeug==0.14.1

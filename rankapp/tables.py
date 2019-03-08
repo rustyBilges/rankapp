@@ -2,12 +2,13 @@ import pandas as pd
 import json
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, current_app
 )
 from werkzeug.exceptions import abort
 
 from rankapp.auth import login_required, logout
 from rankapp.db import get_db
+from rankapp.patient_db import *
 
 bp = Blueprint('tables', __name__)
 
@@ -15,19 +16,20 @@ bp = Blueprint('tables', __name__)
 ##   A class would be more elegant but requires url endpoint rules
 ##   rather than decorators as currently used here.
 df = pd.DataFrame()
-df['Name'] = ['Paul Stephenson', 'Princess Campbell', 'Guy Bailey', 'Roy Hackett', 'Carmen Beckford', 'Prince Brown', 'Owen Henry', 'Pero Jones', 'James Peters', 'Alfred Fagon']
-df['Bed'] = [1,2,3,5,7,8,11,12,14,15]
-df['T_number'] = ['T38746', 'T18346', 'T32985', 'T23190', 'T19583', 'T49568', 'T30297', 'T43078', 'T89765', 'T34287']
-df['Age'] = ['61', '52', '81', '77', '65', '82', '80', '59', '38', '76']
-df['Admission'] = ['2019/01/25', '2019/03/01', '2019/02/18', '2019/02/22', '2019/02/15', '2019/02/24', '2019/03/02', '2019/02/21', '2019/02/28', '2019/02/29' ]
-
-nrfd = {name:False for name in df['Name']}
+nrfd = dict()
 
 
 @bp.route('/')
 @login_required
 def index():
     global df
+    if current_app.config['PATIENTDATA']=='dummy':
+        patientData = DummyPatientData()
+    elif current_app.config['PATIENTDATA']=='icca':
+        patientData = IccaPatientData()
+
+    df = patientData.returnPatientDf()
+    nrfd = {name:False for name in df['Name']}
     table_d = json.loads(df.to_json(orient='index'))
     columns = df.columns
                 
